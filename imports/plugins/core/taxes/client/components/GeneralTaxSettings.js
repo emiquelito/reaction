@@ -48,6 +48,7 @@ export default class GeneralTaxSettings extends Component {
     const { onSubmit, settingsDoc, validator } = this.props;
 
     const activeTaxServiceNameInputId = `activeTaxServiceName_${this.uniqueInstanceIdentifier}`;
+    const fallbackTaxServiceNameInputId = `fallbackTaxServiceName_${this.uniqueInstanceIdentifier}`;
     const defaultTaxCodeInputId = `defaultTaxCode_${this.uniqueInstanceIdentifier}`;
 
     return (
@@ -56,6 +57,10 @@ export default class GeneralTaxSettings extends Component {
           <Field name="activeTaxServiceName" label={i18next.t("admin.taxSettings.activeTaxServiceName")} labelFor={activeTaxServiceNameInputId}>
             <Select id={activeTaxServiceNameInputId} name="activeTaxServiceName" options={this.taxServicesOptions} placeholder={i18next.t("admin.taxSettings.activeTaxServiceNamePlaceholder")} />
             <ErrorsBlock names={["activeTaxServiceName"]} />
+          </Field>
+          <Field name="fallbackTaxServiceName" label={i18next.t("admin.taxSettings.fallbackTaxServiceName")} labelFor={fallbackTaxServiceNameInputId}>
+            <Select id={fallbackTaxServiceNameInputId} name="fallbackTaxServiceName" options={this.taxServicesOptions} placeholder={i18next.t("admin.taxSettings.fallbackTaxServiceNamePlaceholder")} />
+            <ErrorsBlock names={["fallbackTaxServiceName"]} />
           </Field>
           <Field name="defaultTaxCode" label={i18next.t("admin.taxSettings.defaultTaxCode")} labelFor={defaultTaxCodeInputId}>
             <TextInput id={defaultTaxCodeInputId} name="defaultTaxCode" />
