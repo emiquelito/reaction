@@ -16,15 +16,15 @@ export function registerPluginHandler({ name: pluginName, taxServices: pluginTax
 /**
  * @param {Object} context The app context
  * @param {String} shopId The shop ID
- * @returns {Object|null} The definition from registerPackage for the tax service that is
- *   currently enabled for the shop with ID `shopId`
+ * @returns {Object} An object containing the definitions from registerPackage for the
+ *   active and fallback tax services currently enabled for the shop with ID `shopId`.
  */
 export async function getTaxServicesForShop(context, shopId) {
   const plugin = await context.collections.Packages.findOne({ name: "reaction-taxes", shopId });
-  if (!plugin) return null;
+  if (!plugin) return {};
 
   const { activeTaxServiceName, fallbackTaxServiceName } = plugin.settings || {};
-  if (!activeTaxServiceName) return null; // at least an active must be set
+  if (!activeTaxServiceName) return {}; // at least an active must be set
 
   const activeConfig = taxServices[activeTaxServiceName];
   const fallbackConfig = taxServices[fallbackTaxServiceName];
