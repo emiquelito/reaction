@@ -34,7 +34,7 @@ export async function getTaxServicesForShop(context, shopId) {
       "Did you forget to install the plugin that provides this service?");
   }
 
-  if (fallbackConfig && !fallbackConfig) {
+  if (fallbackTaxServiceName && !fallbackConfig) {
     throw new Error(`Fallback tax service is "${fallbackTaxServiceName}" but no such service exists. ` +
       "Did you forget to install the plugin that provides this service?");
   }
