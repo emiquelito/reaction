@@ -46,15 +46,17 @@ export default async function getFulfillmentGroupTaxes(context, { order, forceZe
   try {
     taxServiceResult = await activeTaxService.functions.calculateOrderTaxes({ context, order });
   } catch (error) {
-    // maybe check for specific error failure before using fallbackTaxService
+    Logger.error(`Error in calculateOrderTaxes for the active tax service (${activeTaxService.displayName})`, error);
+    // TODO: Maybe check for specific error failure before using fallbackTaxService
     if (fallbackTaxService) {
+      Logger.info("Primary tax service calculation failed. Using set fallback tax service");
       try {
         taxServiceResult = await fallbackTaxService.functions.calculateOrderTaxes({ context, order });
       } catch (fallbackError) {
-        Logger.error(fallbackError);
+        Logger.error(`Error in calculateOrderTaxes for the fallback tax service (${fallbackTaxService.displayName})`, fallbackError);
+        throw new ReactionError("internal-error", "Error while calculating taxes");
       }
     } else {
-      Logger.error(`Error in calculateOrderTaxes for the active tax service (${activeTaxService.displayName})`, error);
       throw new ReactionError("internal-error", "Error while calculating taxes");
     }
   }
