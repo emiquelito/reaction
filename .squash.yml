@@ -3,4 +3,4 @@ deployments:
     filename:
       ./docker-compose-demo.yml
     port_forwarding:
-      3000:80
+      80:3000
