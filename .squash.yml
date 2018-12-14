@@ -1,0 +1,4 @@
+deployments:
+  default:
+    filename:
+      ./docker-compose-demo.yml
